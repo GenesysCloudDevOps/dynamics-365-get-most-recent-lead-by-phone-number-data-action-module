@@ -1,0 +1,136 @@
+{
+  "name": "Get Most Recent Lead By Phone Number",
+  "integrationType": "microsoft-dynamics-data-actions",
+  "actionType": "custom",
+  "config": {
+    "request": {
+      "requestUrlTemplate": "/api/data/v8.1/leads?${esc.dollar}select=leadid,_owninguser_value,firstname,lastname,telephone1,telephone2,telephone3,mobilephone,emailaddress1,emailaddress2,emailaddress3,address1_line1,address1_line2,address1_city,address1_stateorprovince,address1_postalcode,address1_country,createdon&${esc.dollar}orderby=$esc.url(\"createdon desc\")&${esc.dollar}top=1&${esc.dollar}filter=$esc.url($msdynamics.phoneNumberFilter(\"$input.PHONE_NUMBER\", [\"telephone1\", \"telephone2\", \"telephone3\", \"mobilephone\"]))",
+      "requestType": "GET",
+      "headers": {
+        "UserAgent": "PureCloudIntegrations/1.0"
+      },
+      "requestTemplate": "${input.rawRequest}"
+    },
+    "response": {
+      "translationMap": {
+        "contact": "$.value"
+      },
+      "translationMapDefaults": {},
+      "successTemplate": "${contact}"
+    }
+  },
+  "contract": {
+    "input": {
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "title": "Phone Number Request",
+        "description": "A phone number-based request.",
+        "type": "object",
+        "required": [
+          "PHONE_NUMBER"
+        ],
+        "properties": {
+          "PHONE_NUMBER": {
+            "type": "string",
+            "description": "The phone number used for the query."
+          }
+        }
+      }
+    },
+    "output": {
+      "successSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "array",
+        "properties": {},
+        "items": {
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "title": "Contact",
+          "type": "object",
+          "description": "A Microsoft Dynamics 365 contact.",
+          "required": [
+            "leadid"
+          ],
+          "properties": {
+            "leadid": {
+              "type": "string",
+              "description": "The ID of the contact."
+            },
+            "firstname": {
+              "type": "string",
+              "description": "The first name of the contact."
+            },
+            "lastname": {
+              "type": "string",
+              "description": "The last name of the contact."
+            },
+            "nickname": {
+              "type": "string",
+              "description": "The nickname of the contact."
+            },
+            "_parentcustomerid_value": {
+              "type": "string",
+              "description": "The parent account ID."
+            },
+            "_owninguser_value": {
+              "type": "string",
+              "description": "The ID of the system user who owns the contact."
+            },
+            "telephone1": {
+              "type": "string",
+              "description": "Phone number 1 for the contact."
+            },
+            "telephone2": {
+              "type": "string",
+              "description": "Phone number 2 for the contact."
+            },
+            "telephone3": {
+              "type": "string",
+              "description": "Phone number 3 for the contact."
+            },
+            "mobilephone": {
+              "type": "string",
+              "description": "Mobile phone number for the contact."
+            },
+            "emailaddress1": {
+              "type": "string",
+              "description": "Email address 1 for the contact."
+            },
+            "emailaddress2": {
+              "type": "string",
+              "description": "Email address 2 for the contact."
+            },
+            "emailaddress3": {
+              "type": "string",
+              "description": "Email address 3 for the contact."
+            },
+            "address1_line1": {
+              "type": "string",
+              "description": "Address 1 line 1 of the street address."
+            },
+            "address1_line2": {
+              "type": "string",
+              "description": "Address 1 line 2 of the street address."
+            },
+            "address1_city": {
+              "type": "string",
+              "description": "Address 1 city."
+            },
+            "address1_stateorprovince": {
+              "type": "string",
+              "description": "Address 1 state or province."
+            },
+            "address1_postalcode": {
+              "type": "string",
+              "description": "Address 1 postal code."
+            },
+            "address1_country": {
+              "type": "string",
+              "description": "Address 1 country."
+            }
+          }
+        }
+      }
+    }
+  },
+  "secure": false
+}

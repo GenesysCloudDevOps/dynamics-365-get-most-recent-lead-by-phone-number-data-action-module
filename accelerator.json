@@ -1,0 +1,65 @@
+{
+    "id": "1480343f-5b57-4419-874b-e0f70179ed78",
+    "name": "Get Most Recent Lead By Phone Number Data Action Module",
+    "description": "A Terraform/CX as Code remote module for the following Dynamics 365 API operation: Get Most Recent Lead By Phone Number",
+    "origin": "genesys",
+    "type": "module",
+    "classification": null,
+    "tags": [],
+    "permissions": [],
+    "documentation": [],
+    "presentation": [
+        {
+            "title": "Page 1",
+            "schema": {
+                "title": "Data Action Setup",
+                "description": "Setup your data action deployment",
+                "type": "object",
+                "properties": [
+                    {
+                        "action_name": {
+                            "description": "The name for the data action",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "action_category": {
+                            "description": "Category of action",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "integration_id": {
+                            "description": "The ID of the integration this action is associated with.",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "secure_data_action": {
+                            "description": "Indication of whether or not the action is designed to accept sensitive data.",
+                            "type": "boolean",
+                            "default": "false"
+                        }
+                    }
+                ],
+                "required": [
+                    "action_name",
+                    "action_category",
+                    "integration_id"
+                ]
+            }
+        }
+    ],
+    "results": {
+        "entities": [
+            {
+                "type": "dataAction",
+                "visibility": "VISIBLE"
+            },
+            {
+                "type": "integration",
+                "visibility": "VISIBLE"
+            }
+        ]
+    }
+}
